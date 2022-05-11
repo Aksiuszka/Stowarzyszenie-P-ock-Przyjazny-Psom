@@ -1,5 +1,4 @@
 import './App.css';
-import Pet from './modules/Pet/Pet';
 import Search from './components/Search/Search'
 const App=()=> {
   return (

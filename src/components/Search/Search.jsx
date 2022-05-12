@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Pet from '../../modules/Pet/Pet';
 import useBreed from '../../Hooks/useBreed/useBreed'
+import Result from '../Results/Results';
 
 function Search() {
 	const animalTypes = ['dog', 'cat'];
@@ -33,9 +34,14 @@ function Search() {
 		setPets(json.pets);
 		console.log(pets);
 	}
+	const handleSubmit= e =>{
+		e.preventDefault();
+		requestPets();
+	}
 	return (
 		<div>
-			<form>
+			<form
+			onSubmit={handleSubmit}>
 				<label htmlFor="location">
 					<input
 						id="location"
@@ -68,14 +74,7 @@ function Search() {
 				</label>
 				<button type="submit">Sumbit</button>
 			</form>
-			{pets.map((pet) => (
-				<Pet
-					name={pet.name}
-					animal={pet.animal}
-					breed={pet.breed}
-					key={pet.id}
-				/>
-			))}
+		<Result pets ={pets}/>
 		</div>
 	);
 }

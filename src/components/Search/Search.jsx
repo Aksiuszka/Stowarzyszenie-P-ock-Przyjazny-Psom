@@ -1,14 +1,16 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Pet from '../../modules/Pet/Pet';
+import useBreed from '../../Hooks/useBreed/useBreed'
 
 function Search() {
-	const animalTypes = ['pies', 'kot', 'gryzon', 'inne / egzotyczne'];
-	const breeds = [];
+	const animalTypes = ['dog', 'cat'];
 	const [animal, setAnimal] = useState('');
 	const [location, setLocation] = useState('');
 	const [breed, setBreed] = useState('');
 	const [pets, setPets] = useState([]);
+	const [breeds] = useBreed(animal);
+	
 	const onLocationChange = (e) => {
 		setLocation(e.target.value);
 	};
@@ -20,16 +22,16 @@ function Search() {
 	};
 	useEffect(() => {
 		requestPets();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	async function requestPets() {
-		   const res = await fetch(
-      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
-    );
-    const json = await res.json();
+		const res = await fetch(
+			`http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+		);
+		const json = await res.json();
 
-    setPets(json.pets);
-        console.log(pets);
+		setPets(json.pets);
+		console.log(pets);
 	}
 	return (
 		<div>
@@ -66,14 +68,14 @@ function Search() {
 				</label>
 				<button type="submit">Sumbit</button>
 			</form>
-            {pets.map((pet) => (
-        <Pet
-          name={pet.name}
-          animal={pet.animal}
-          breed={pet.breed}
-          key={pet.id}
-        />
-      ))}
+			{pets.map((pet) => (
+				<Pet
+					name={pet.name}
+					animal={pet.animal}
+					breed={pet.breed}
+					key={pet.id}
+				/>
+			))}
 		</div>
 	);
 }

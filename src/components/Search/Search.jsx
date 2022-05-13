@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Pet from '../../modules/Pet/Pet';
 import useBreed from '../../Hooks/useBreed/useBreed'
 import Result from '../Results/Results';
 

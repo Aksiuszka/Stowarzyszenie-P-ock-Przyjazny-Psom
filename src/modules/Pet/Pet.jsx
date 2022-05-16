@@ -1,22 +1,24 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
-const Pet =({name, animal, breed, location, images, id})=> {
-  let defaultImage="http://pet-images.dev-apis.com/pets/none.jpg";
-  if(images.length){
-    defaultImage = images[0];
-  };
+const Pet = (props) => {
+  const { name, animal, breed, images, location, id } = props;
+
+  let hero = "http://pets-images.dev-apis.com/pets/none.jpg";
+  if (images.length) {
+    hero = images[0];
+  }
+
   return (
-    <a href={`/details/${id}`}>
-      <div>
-        <img src={defaultImage} alt={name}/>
+    <Link to={`/details/${id}`} className="pet">
+      <div className="image-container">
+        <img src={hero} alt={name} />
       </div>
-      <div>
-        <h2>{name}</h2>
-        <h4>{animal} - {breed} - {location}</h4>
+      <div className="info">
+        <h1>{name}</h1>
+        <h2>{`${animal} — ${breed} — ${location}`}</h2>
       </div>
-    
-    </a>
-  )
-}
+    </Link>
+  );
+};
 
-export default Pet
+export default Pet;
